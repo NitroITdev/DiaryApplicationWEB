@@ -1,4 +1,5 @@
 # -План проекта: «Приложение для ведения дневника»
+# Chsherbina Nikita and Kamilzhanov Jahongir
 1. Введение
 
 Название проекта:

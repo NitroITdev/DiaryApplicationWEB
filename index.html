@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой Дневник</title>
+    <title>DiaryApp</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>📖 Мой дневник</h1>
-
-        <!-- Форма добавления записи -->
+    <div class="conteiner">
+        <h1>Мой дневник</h1>
         <div class="input-section">
-            <input type="text" id="diaryInput" placeholder="Напиши свою запись...">
-            <button id="addBtn">Добавить</button>
+            <input type="text" id="diaryInput" placeholder="Напиши запись...">
+            <button class="addBtn">Добавить</button>
         </div>
-
-        <!-- Список записей -->
-        <ul id="diaryList"></ul>
+        <ul id="diaryList">
+            <li>Пока записей нет...</li>
+        </ul>
     </div>
 
     <script src="script.js"></script>
+
 </body>
 
 </html>

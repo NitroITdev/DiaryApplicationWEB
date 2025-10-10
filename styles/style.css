@@ -159,7 +159,7 @@ body {
 .search-input:focus {
     outline: none;
     border-color: coral;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.2);
 }
 
 .add-btn {
@@ -324,8 +324,8 @@ body {
 
 .form-input:focus {
     outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    border-color: coral;
+    box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.2);
 }
 
 .form-textarea {
@@ -333,3 +333,23 @@ body {
     resize: vertical;
 }
 
+.filter-group {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-select {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: coral;
+    box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.2);
+}

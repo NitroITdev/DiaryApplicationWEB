@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DiaryApp</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="libs/bootstrap-grid.min.css">
 
@@ -30,6 +31,7 @@
                 </ul>
 
                 <a href="#" class="callback">Feedback</a>
+                <a href="newpage.html" class="callback">Exit</a>
             </div>
         </div>
 
@@ -125,6 +127,19 @@
             </div>
         </div>
 
+        <div id="confirmModal" class="modal-overlay">
+            <div class="modal confirmation-modal">
+                <div class="modal-body">
+                    <p class="confirmation-text">
+                        Are you sure you want to delete this note?
+                    </p>
+                    <div class="confirmation-buttons">
+                        <button id="cancelDeleteBtn" class="confirmation-btn cancel-btn">Cancel</button>
+                        <button id="confirmDeleteBtn" class="confirmation-btn confirm-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

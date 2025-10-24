@@ -103,6 +103,34 @@
   text-decoration: underline;
 }
 
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+/* === Поля ввода === */
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.25s ease;
+    background-color: #fafafa;
+}
+
+.form-input:focus {
+    border-color: coral;
+    box-shadow: 0 0 6px rgba(255, 127, 80, 0.3);
+    background-color: #fff;
+}
+
+
 /* Анимация плавного появления */
 @keyframes fadeIn {
   from {

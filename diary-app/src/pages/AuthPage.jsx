@@ -54,8 +54,9 @@ function AuthPage() {
             <h1>Вход</h1>
             <form onSubmit={handleLogin} className="register-form">
               <div className="register-form-group">
-                <label>Email</label>
+                <label class="form-label">Email</label>
                 <input
+                  class="form-input"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -64,8 +65,9 @@ function AuthPage() {
                 />
               </div>
               <div className="register-form-group">
-                <label>Пароль</label>
+                <label class="form-label">Пароль</label>
                 <input
+                  class="form-input"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -91,8 +93,9 @@ function AuthPage() {
             <h1>Регистрация</h1>
             <form onSubmit={handleRegister} className="register-form">
               <div className="register-form-group">
-                <label>Имя пользователя</label>
+                <label class="form-label">Имя пользователя</label>
                 <input
+                  class="form-input"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -101,8 +104,9 @@ function AuthPage() {
                 />
               </div>
               <div className="register-form-group">
-                <label>Email</label>
+                <label class="form-label">Email</label>
                 <input
+                  class="form-input"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -111,8 +115,9 @@ function AuthPage() {
                 />
               </div>
               <div className="register-form-group">
-                <label>Пароль</label>
+                <label class="form-label">Пароль</label>
                 <input
+                  class="form-input"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

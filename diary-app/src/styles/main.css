@@ -12,6 +12,9 @@ body {
 	min-width: 320px;
 	overflow-x: hidden;
 	height: auto;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -29,6 +32,8 @@ body {
 }
 
 .navbar-menu {
+    display: flex;
+    gap: 3em;
   list-style-type: none;
   margin: 0;
   padding-left: 0;
@@ -56,10 +61,11 @@ body {
 .navbar-wrap {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between    ;
   align-items: center;
 }
 
-.callback {
+/* .callback {
   margin-left: 30px;
   padding: 10px 30px;
   background-color: coral;
@@ -74,6 +80,75 @@ body {
   transform: scale(1.04);
   color: #fff;
   box-shadow: 0 9px 9px rgba(255, 127, 80, .5);
+} */
+
+.floating-feedback-btn {
+    /* Фиксированное позиционирование для плавающей кнопки */
+    position: fixed;
+    /* Размещение в правом нижнем углу */
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000; /* Поверх большинства элементов, кроме модальных окон */
+    
+    /* Стилизация, используем Coral для привлечения внимания */
+    background-color: coral;
+    color: white;
+    border: none;
+    border-radius: 50px; /* Круглые края */
+    padding: 15px 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 127, 80, 0.5); /* Тень в цвет коралла */
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.floating-feedback-btn:hover {
+    /* Используем эффект, как у вашей кнопки .callback */
+    transform: scale(1.04);
+    box-shadow: 0 9px 9px rgba(255, 127, 80, .5);
+    background-color: #ff6347; /* Чуть темнее коралла */
+}
+
+.floating-feedback-btn i {
+    font-size: 18px;
+}
+
+
+/* --- СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ОБРАТНОЙ СВЯЗИ --- */
+
+/* Использует общие стили .modal-overlay и .modal */
+
+.feedback-modal {
+    /* Делаем модальное окно обратной связи немного меньше */
+    max-width: 420px; 
+    width: 90%;
+}
+
+.feedback-modal .modal-body {
+    padding-top: 0;
+}
+
+.feedback-modal p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Переопределяем цвет кнопки Submit для модального окна обратной связи, 
+   чтобы она соответствовала цвету коралла, как и сама кнопка */
+.feedback-modal .submit-btn {
+    background-color: coral;
+}
+
+.feedback-modal .submit-btn:hover {
+    background-color: #ff6347; /* Чуть темнее коралла */
 }
 
 .logout-btn {

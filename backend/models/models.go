@@ -8,6 +8,9 @@ type User struct {
 	Username     string `json:"username"`
 	Email        string `json:"email"`
 	PasswordHash string `json:"-"`
+    IsVerified        bool      `json:"is_verified"`        // Статус верификации аккаунта
+    VerificationCode  string    `json:"-"`                  // Секретный код для подтверждения
+    CodeExpiryTime    time.Time `json:"-"`                  // Время истечения кода
 }
 
 // Note представляет заметку
@@ -34,4 +37,10 @@ type RegisterRequest struct {
 	Password	string	`json:"password"`
 }
 
+// VerificationRequest используется для получения данных 
+// из тела HTTP-запроса при подтверждении кода верификации.
+type VerificationRequest struct {
+    Email string `json:"email"`
+    Code  string `json:"code"`
+}
 

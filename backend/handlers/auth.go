@@ -6,12 +6,11 @@ import (
 	"net/http"
 	"time"
 
-	// ⭐ Убедитесь, что эти пакеты импортированы
-	"github.com/lib/pq" // Используется для обработки ошибок БД, например, нарушения уникальности
+	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 
-	"diary-backend/models" // ⭐ Замените на ваш путь к модулю
-	"diary-backend/utils"  // ⭐ Замените на ваш путь к модулю
+	"diary-backend/models"
+	"diary-backend/utils"
 )
 
 // RegisterHandler обрабатывает регистрацию пользователя с верификацией по email
@@ -50,7 +49,7 @@ func RegisterHandler(db *sql.DB) http.HandlerFunc {
             RETURNING id
         `
         
-        // ⭐ Обратите внимание на порядок аргументов:
+        // Обратите внимание на порядок аргументов:
         err = db.QueryRow(sqlStatement, 
             req.Username, 
             req.Email, 

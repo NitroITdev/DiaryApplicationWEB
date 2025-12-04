@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api"; // <-- Импорт API
 import "../styles/register.css";
 
 function AuthPage() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [hasAccount, setHasAccount] = useState(true);
     const [username, setUsername] = useState("");
@@ -42,20 +42,14 @@ function AuthPage() {
         e.preventDefault();
         setError(null);
 
-        if (!email || !password || !username) {
-            setError("Пожалуйста, заполните все поля.");
-            return;
-        }
-
-        if (!isPasswordValid(password)) {
-            setError("Пароль должен содержать: 8+ символов, заглавную и строчную буквы, цифру и спецсимвол.");
-            return;
-        }
-
+        
         try {
             // 1. Регистрируем пользователя на бэкенде
-            await registerUser(username, email, password);
-            await handleLogin(null, true); 
+            const response = await registerUser(username, email, password);
+            alert(response.message || "Аккаунт создан. Проверьте почту!");
+            
+            // Перенаправление на страницу ввода кода, передавая email
+            navigate('/verify', { state: { email: email } }); 
             
         } catch (err) {
             // Go-бэкенд вернет ошибку, если username или email уже заняты
@@ -65,7 +59,7 @@ function AuthPage() {
 
     const toggleForm = () => {
         setHasAccount(!hasAccount);
-        setError(null); // Очищаем ошибки при переключении
+        setError(null); 
         setUsername("");
         setEmail("");
         setPassword("");

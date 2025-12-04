@@ -10,7 +10,6 @@ import (
 	"diary-backend/models"
 
 	"github.com/gorilla/mux"
-	// Используется для извлечения параметров маршрута
 )
 
 // CreateNote обрабатывает POST /notes

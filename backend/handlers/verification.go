@@ -1,17 +1,16 @@
 package handlers
 
 import (
-	"database/sql" // ⭐ Необходим для *sql.DB и работы с базой данных
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"time"
 
-	"diary-backend/models" // Ваш путь к моделям
-	"diary-backend/utils"  // Ваш путь к утилитам
+	"diary-backend/models"
+	"diary-backend/utils"
 )
 
-// VerifyHandler возвращает http.HandlerFunc, которая принимает соединение с БД (*sql.DB).
-// Это решает проблему "undefined: db".
+
 func VerifyHandler(db *sql.DB) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         if r.Method != http.MethodPost {
@@ -81,7 +80,6 @@ func VerifyHandler(db *sql.DB) http.HandlerFunc {
         }
 
         // --- 5. Выдача JWT-токена ---
-        // ⭐ Предполагается, что utils содержит функцию GenerateToken или GenerateJWT
         tokenString, err := utils.GenerateToken(user.ID) 
         if err != nil {
             http.Error(w, "Ошибка генерации токена", http.StatusInternalServerError)

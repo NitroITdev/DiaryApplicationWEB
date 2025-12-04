@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// Убедитесь, что deleteNoteApi, getNotes, createNote, logoutUser ИМПОРТИРОВАНЫ из вашего файла API
 import { getNotes, createNote, deleteNoteApi, logoutUser } from "../api";
 import "../styles/main.css";
 import "../styles/libs/bootstrap-grid.min.css";
@@ -18,9 +17,9 @@ function DiaryPage() {
   });
   const [showAddModal, setShowAddModal] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
-  // НОВОЕ СОСТОЯНИЕ ДЛЯ МОДАЛЬНОГО ОКНА ОБРАТНОЙ СВЯЗИ
+  // СОСТОЯНИЕ ДЛЯ МОДАЛЬНОГО ОКНА ОБРАТНОЙ СВЯЗИ
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  // НОВОЕ СОСТОЯНИЕ ДЛЯ ТЕКСТА ОБРАТНОЙ СВЯЗИ
+  // СОСТОЯНИЕ ДЛЯ ТЕКСТА ОБРАТНОЙ СВЯЗИ
   const [feedbackText, setFeedbackText] = useState("");
   const [search, setSearch] = useState("");
   const [filterTag, setFilterTag] = useState("all");
@@ -407,7 +406,7 @@ function DiaryPage() {
           </div>
         )}
 
-        {/* ⭐ НОВЫЙ ЭЛЕМЕНТ: ПЛАВАЮЩАЯ КНОПКА (ТОЛЬКО ЗДЕСЬ) */}
+        {/* ПЛАВАЮЩАЯ КНОПКА */}
         <button
           className="floating-feedback-btn"
           onClick={() => setShowFeedbackModal(true)}
@@ -416,7 +415,7 @@ function DiaryPage() {
           <i className="fas fa-comment-alt"></i> Feedback
         </button>
 
-        {/* ⭐ НОВЫЙ ЭЛЕМЕНТ: МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ */}
+        {/* МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ */}
         {showFeedbackModal && (
           <div
             className="modal-overlay active"

@@ -13,7 +13,7 @@ import (
 )
 
 const (
-    // ⭐ ОБНОВИТЕ: Убедитесь, что строка подключения актуальна
+    // ОБНОВИТЕ: Убедитесь, что строка подключения актуальна
     dbConnStr = "user=postgres password=postgreAdmin dbname=diarydb sslmode=disable"
     port      = ":8080"
 )
@@ -39,7 +39,8 @@ func main() {
     // Эти функции вызываются с db в качестве аргумента, чтобы они могли получить доступ к базе данных.
     r.HandleFunc("/register", handlers.RegisterHandler(db)).Methods("POST")  // Регистрация с отправкой email
     r.HandleFunc("/login", handlers.LoginHandler(db)).Methods("POST")        // Вход (проверяет is_verified)
-    r.HandleFunc("/verify", handlers.VerifyHandler(db)).Methods("POST")      // ⭐ НОВЫЙ МАРШРУТ: Верификация аккаунта
+    r.HandleFunc("/verify", handlers.VerifyHandler(db)).Methods("POST")      // Верификация аккаунта
+	r.HandleFunc("/resend-code", handlers.ResendCodeHandler(db)).Methods("POST")
 
     // 4. Группа защищенных маршрутов (требуется JWT)
     protectedRouter := r.PathPrefix("/notes").Subrouter()
@@ -47,7 +48,6 @@ func main() {
     protectedRouter.Use(middleware.AuthMiddleware)
 
     // 5. Обработчики Заметок (CRUD)
-    // ⭐ Предполагаем, что ваши функции заметок имеют суффикс Handler:
     
 	protectedRouter.HandleFunc("", handlers.GetNotes(db)).Methods("GET")
     protectedRouter.HandleFunc("", handlers.CreateNote(db)).Methods("POST")

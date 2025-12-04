@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 // Убедитесь, что deleteNoteApi, getNotes, createNote, logoutUser ИМПОРТИРОВАНЫ из вашего файла API
 import { getNotes, createNote, deleteNoteApi, logoutUser } from "../api"; 
 import "../styles/main.css";
-import "bootstrap/dist/css/bootstrap-grid.min.css";
-import "bootstrap/dist/css/bootstrap-reboot.min.css";
+import "../styles/libs/bootstrap-grid.min.css";
+import "../styles/libs/bootstrap-reboot.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function DiaryPage() {

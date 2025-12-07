@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import DiaryPage from "./pages/DiaryPage";
 import AuthPage from "./pages/AuthPage";
+import Functions from "./pages/Functions";
+import WhyJournal from "./pages/WhyJournal";
+import HowToStart from "./pages/HowToStart";
 import About from "./pages/About";
 import VerificationPage from "./pages/VerificationPage";
 
@@ -33,6 +36,15 @@ function App() {
 
         {/* Страница информации о нас */}
         <Route path="/about" element={<About />} />
+
+        {/* маршрут для "Зачем вести дневник?" */}
+        <Route path="/why-journal" element={<WhyJournal />} />
+
+        <Route path="/how-to-start" element={<HowToStart />} />
+
+        <Route path="/functions" element={<Functions />} />
+
+
 
         {/* Все остальные маршруты → главная или авторизация */}
         <Route

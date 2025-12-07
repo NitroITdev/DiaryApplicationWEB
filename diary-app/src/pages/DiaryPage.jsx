@@ -214,13 +214,16 @@ function DiaryPage() {
                 <Link to="/about">О нас</Link>
               </li>
               <li>
-                <Link to="/text1">Текст</Link>
+              <Link to="/why-journal">Зачем вести дневник?</Link>
               </li>
               <li>
-                <Link to="/text2">Текст</Link>
+                <li>
+              <Link to="/how-to-start">Как начать?</Link>
+              </li>
+
               </li>
               <li>
-                <Link to="/text3">Текст</Link>
+                 <Link to="/functions">Функции</Link>
               </li>
             </ul>
           </div>

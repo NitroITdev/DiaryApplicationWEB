@@ -34,16 +34,13 @@ function App() {
         {/* МАРШРУТ ВЕРИФИКАЦИИ */}
         <Route path="/verify" element={<VerificationPage />} />
 
-        {/* Страница информации о нас */}
         <Route path="/about" element={<About />} />
 
-        {/* маршрут для "Зачем вести дневник?" */}
         <Route path="/why-journal" element={<WhyJournal />} />
 
         <Route path="/how-to-start" element={<HowToStart />} />
 
         <Route path="/functions" element={<Functions />} />
-
 
 
         {/* Все остальные маршруты → главная или авторизация */}

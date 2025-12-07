@@ -344,6 +344,20 @@ body {
 
 
 
+.edit-btn {
+    color: #999;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.edit-btn:hover {
+    color: #ef4444;
+}
+
+
 .delete-btn {
     color: #999;
     background: none;

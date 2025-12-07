@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getNotes, createNote, deleteNoteApi, logoutUser } from "../api";
+import { getNotes, createNote, updateNoteApi, deleteNoteApi, logoutUser } from "../api";
 import "../styles/main.css";
 import "../styles/libs/bootstrap-grid.min.css";
 import "../styles/libs/bootstrap-reboot.min.css";
@@ -17,6 +17,8 @@ function DiaryPage() {
   });
   const [showAddModal, setShowAddModal] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
+  const [noteToEdit, setNoteToEdit] = useState(null); // Хранит объект заметки для редактирования
+  const [showEditModal, setShowEditModal] = useState(false); // Управление модальным окном редактирования
   // СОСТОЯНИЕ ДЛЯ МОДАЛЬНОГО ОКНА ОБРАТНОЙ СВЯЗИ
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   // СОСТОЯНИЕ ДЛЯ ТЕКСТА ОБРАТНОЙ СВЯЗИ
@@ -26,18 +28,18 @@ function DiaryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ФУНКЦИЯ: ОТПРАВКА ОБРАТНОЙ СВЯЗИ
-  const handleSendFeedback = (e) => {
-    e.preventDefault();
-    if (!feedbackText.trim()) return;
+  // // ФУНКЦИЯ: ОТПРАВКА ОБРАТНОЙ СВЯЗИ
+  // const handleSendFeedback = (e) => {
+  //   e.preventDefault();
+  //   if (!feedbackText.trim()) return;
 
-    console.log("Отправка обратной связи:", feedbackText);
+  //   console.log("Отправка обратной связи:", feedbackText);
 
-    // Тут будет реальный API-вызов
-    alert("Спасибо за ваш отзыв!");
-    setFeedbackText("");
-    setShowFeedbackModal(false);
-  };
+  //   // Тут будет реальный API-вызов
+  //   alert("Спасибо за ваш отзыв!");
+  //   setFeedbackText("");
+  //   setShowFeedbackModal(false);
+  // };
 
   // --- ФУНКЦИЯ ЗАГРУЗКИ ЗАМЕТОК ---
   const fetchNotes = useCallback(async () => {
@@ -100,6 +102,44 @@ function DiaryPage() {
     }
   };
 
+  // --- ФУНКЦИЯ ОБНОВЛЕНИЯ ЗАМЕТКИ ---
+  const handleUpdateNote = async (e) => {
+    e.preventDefault();
+    if (!noteToEdit || !noteToEdit.title.trim() || !noteToEdit.content.trim())
+      return;
+
+    const noteData = {
+      title: noteToEdit.title,
+      content: noteToEdit.content,
+      tag: noteToEdit.tag || "ideas",
+    };
+
+    try {
+      // ВЫЗОВ API ДЛЯ ОБНОВЛЕНИЯ
+      const updatedNote = await updateNoteApi(noteToEdit.id, noteData);
+
+      const formattedUpdatedNote = {
+        ...updatedNote,
+        // Используем updated_at от Go-бэкенда в качестве основной даты
+        date: updatedNote.updated_at,
+      };
+
+      // Обновляем список заметок в локальном стейте
+      setNotes(
+        notes.map((n) =>
+          n.id === formattedUpdatedNote.id ? formattedUpdatedNote : n
+        )
+      );
+
+      // Закрываем модальное окно
+      setNoteToEdit(null);
+      setShowEditModal(false);
+    } catch (err) {
+      console.error("Ошибка при обновлении заметки:", err);
+      setError("Ошибка при обновлении заметки.");
+    }
+  };
+
   // ФУНКЦИЯ УДАЛЕНИЯ
   const handleDeleteNote = async (id) => {
     try {
@@ -129,7 +169,6 @@ function DiaryPage() {
 
     // Проверяем, удалось ли распарсить дату
     if (isNaN(date.getTime())) {
-      // Если дата невалидна, возвращаем исходную строку или сообщение об ошибке
       return "Неверная дата";
     }
 
@@ -224,7 +263,6 @@ function DiaryPage() {
               </li>
             </ul>
           </div>
-          {/* \УДАЛЕН Link to="/feedback" ИЗ NAVBAR */}
           <button className="logout-btn" onClick={handleLogout}>
             Exit
           </button>
@@ -288,13 +326,27 @@ function DiaryPage() {
                 <div className="note-content">
                   <div className="note-header">
                     <h4 className="note-title">{note.title}</h4>
-                    {/* Кнопка удаления, вызывает setNoteToDelete */}
-                    <button
-                      className="delete-btn"
-                      onClick={() => setNoteToDelete(note.id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
+                    <div className="note-actions">
+                      {" "}
+                      {/* контейнер для кнопок */}
+                      {/* КНОПКА РЕДАКТИРОВАНИЯ */}
+                      <button
+                        className="edit-btn"
+                        onClick={() => {
+                          setNoteToEdit(note); // Устанавливаем текущую заметку для редактирования
+                          setShowEditModal(true); // Открываем модальное окно
+                        }}
+                      >
+                        <i className="fas fa-pen"></i>
+                      </button>
+                      {/* Кнопка удаления */}
+                      <button
+                        className="delete-btn"
+                        onClick={() => setNoteToDelete(note.id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </div>
                   </div>
                   <p className="note-text">{note.content}</p>
                   <div className="note-footer">
@@ -406,6 +458,76 @@ function DiaryPage() {
           </div>
         )}
 
+        {/* Edit Note Modal (Использует noteToEdit) */}
+        {showEditModal && noteToEdit && (
+          <div className="modal-overlay active">
+            <div className="modal">
+              <div className="modal-header">
+                <h3 className="modal-title">Edit Note</h3>
+                <button
+                  className="modal-close"
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setNoteToEdit(null);
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              <form className="modal-body" onSubmit={handleUpdateNote}>
+                <div className="form-group">
+                  <label className="form-label">Title</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={noteToEdit.title}
+                    onChange={(e) =>
+                      setNoteToEdit({ ...noteToEdit, title: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Content</label>
+                  <textarea
+                    className="form-input form-textarea"
+                    rows="5"
+                    value={noteToEdit.content}
+                    onChange={(e) =>
+                      setNoteToEdit({ ...noteToEdit, content: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="tags-container">
+                  {["work", "personal", "ideas", "reminders"].map((tag) => (
+                    <label key={tag} className="tag-option">
+                      <input
+                        type="radio"
+                        name="noteTag"
+                        value={tag}
+                        className="tag-radio"
+                        checked={noteToEdit.tag === tag}
+                        onChange={(e) =>
+                          setNoteToEdit({ ...noteToEdit, tag: e.target.value })
+                        }
+                      />
+                      <span className={`tag-label tag-${tag}`}>
+                        {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                <button type="submit" className="submit-btn">
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
         {/* ПЛАВАЮЩАЯ КНОПКА */}
         <button
           className="floating-feedback-btn"
@@ -442,12 +564,12 @@ function DiaryPage() {
                     style={{ margin: "20px 0", borderTop: "1px solid #eee" }}
                   />
 
-                  <p>
+                  {/* <p>
                     Если ваш вопрос не найден, пожалуйста, оставьте нам
                     сообщение:
-                  </p>
+                  </p> */}
 
-                  <form onSubmit={handleSendFeedback}>
+                  {/* <form onSubmit={handleSendFeedback}>
                     <div className="form-group">
                       <textarea
                         className="form-input form-textarea"
@@ -460,7 +582,7 @@ function DiaryPage() {
                     <button type="submit" className="submit-btn">
                       Отправить сообщение
                     </button>
-                  </form>
+                  </form> */}
                 </div>
               </div>
             </div>

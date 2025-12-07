@@ -48,6 +48,61 @@ func CreateNote(db *sql.DB) http.HandlerFunc {
 	}
 }
 
+// UpdateNote обрабатывает PUT /notes/{id}
+func UpdateNote(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// 1. Получение UserID из контекста
+		userID, ok := middleware.GetUserIDFromContext(r.Context())
+		if !ok {
+			http.Error(w, "Ошибка аутентификации (userID отсутствует)", http.StatusInternalServerError)
+			return
+		}
+
+		// 2. Получение NoteID из переменных пути
+		vars := mux.Vars(r)
+		noteID, err := strconv.Atoi(vars["id"])
+		if err != nil {
+			http.Error(w, "Неверный ID заметки", http.StatusBadRequest)
+			return
+		}
+
+		// 3. Декодирование данных для обновления
+		var updatedFields struct {
+			Title   string `json:"title"`
+			Content string `json:"content"`
+			Tag     string `json:"tag"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&updatedFields); err != nil {
+			http.Error(w, "Неверный формат запроса", http.StatusBadRequest)
+			return
+		}
+
+		// 4. SQL UPDATE: Обновление заметки, принадлежащей пользователю.
+		// Используем RETURNING для получения обновленных данных и нового updated_at.
+		sqlStatement := `UPDATE notes 
+						 SET title = $1, content = $2, tag = $3, updated_at = NOW() 
+						 WHERE id = $4 AND user_id = $5 
+						 RETURNING id, user_id, title, content, tag, created_at, updated_at`
+
+		var updatedNote models.Note
+		err = db.QueryRow(sqlStatement, updatedFields.Title, updatedFields.Content, updatedFields.Tag, noteID, userID).Scan(
+			&updatedNote.ID, &updatedNote.UserID, &updatedNote.Title, &updatedNote.Content, &updatedNote.Tag, &updatedNote.CreatedAt, &updatedNote.UpdatedAt)
+
+		if err != nil {
+			if err == sql.ErrNoRows {
+				// Если RowsAffected = 0, значит заметка не найдена или не принадлежит пользователю
+				http.Error(w, "Заметка не найдена или не принадлежит пользователю", http.StatusNotFound)
+				return
+			}
+			http.Error(w, "Ошибка при обновлении заметки: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// 5. Отправка обновленной заметки в ответе
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(updatedNote)
+	}
+}
 
 // GetNotes обрабатывает GET /notes (получение всех заметок пользователя)
 func GetNotes(db *sql.DB) http.HandlerFunc {

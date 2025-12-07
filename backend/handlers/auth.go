@@ -24,7 +24,7 @@ func RegisterHandler(db *sql.DB) http.HandlerFunc {
 
         // НОВАЯ ПРОВЕРКА: Валидация пароля
         if !utils.ValidatePassword(req.Password) {
-            http.Error(w, "Пароль не соответствует требованиям безопасности", http.StatusBadRequest)
+            http.Error(w, "Пароль должен состоять из 8 символов, строчной и заглавной буквы, спец. символа(!@#$%^&*)", http.StatusBadRequest)
             return
         }
         

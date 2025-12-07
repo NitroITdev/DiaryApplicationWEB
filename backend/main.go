@@ -51,6 +51,7 @@ func main() {
     
 	protectedRouter.HandleFunc("", handlers.GetNotes(db)).Methods("GET")
     protectedRouter.HandleFunc("", handlers.CreateNote(db)).Methods("POST")
+    protectedRouter.HandleFunc("/{id}", handlers.UpdateNote(db)).Methods("PUT")
     protectedRouter.HandleFunc("/{id}", handlers.GetNote(db)).Methods("GET")
     protectedRouter.HandleFunc("/{id}", handlers.DeleteNote(db)).Methods("DELETE")
 

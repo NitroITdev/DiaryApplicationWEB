@@ -1,14 +1,77 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getNotes, createNote, updateNoteApi, deleteNoteApi, logoutUser } from "../api";
+import {
+  getNotes,
+  createNote,
+  updateNoteApi,
+  deleteNoteApi,
+  logoutUser,
+} from "../api";
 import "../styles/main.css";
 import "../styles/libs/bootstrap-grid.min.css";
 import "../styles/libs/bootstrap-reboot.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+const Navbar = ({ handleLogout, isMenuOpen, toggleMenu }) => {
+  return (
+    <nav className="navbar">
+      <div className="container">
+        {/* НОВАЯ КНОПКА БУРГЕР-МЕНЮ */}
+        <button
+          className={`burger-menu ${isMenuOpen ? "is-active" : ""}`}
+          onClick={toggleMenu}
+        >
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+        </button>
+        <Link to="/" className="navbar-brand">
+          DiaryApp
+        </Link>
+
+        {/* ПРИМЕНЕНИЕ КЛАССА 'open' */}
+        <div className={`navbar-wrap ${isMenuOpen ? "open" : ""}`}>
+          <button className="navbar-close-btn" onClick={toggleMenu}>
+            x
+          </button>
+          <ul className="navbar-menu">
+            <li>
+              <Link to="/about" onClick={toggleMenu}>
+                О нас
+              </Link>
+            </li>
+            <li>
+              <Link to="/why-journal" onClick={toggleMenu}>
+                Зачем вести дневник?
+              </Link>
+            </li>
+            <li>
+              <Link to="/how-to-start" onClick={toggleMenu}>
+                Как начать?
+              </Link>
+            </li>
+            <li>
+              <Link to="/functions" onClick={toggleMenu}>
+                Функции
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <button className="logout-btn" onClick={handleLogout}>
+          Exit
+        </button>
+      </div>
+    </nav>
+  );
+};
+
 function DiaryPage() {
   const navigate = useNavigate();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState({
     title: "",
@@ -242,32 +305,12 @@ function DiaryPage() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            DiaryApp
-          </Link>
-          <div className="navbar-wrap">
-            <ul className="navbar-menu">
-              <li>
-                <Link to="/about">О нас</Link>
-              </li>
-              <li>
-                <Link to="/why-journal">Зачем вести дневник?</Link>
-              </li>
-              <li>
-                <Link to="/how-to-start">Как начать?</Link>
-              </li>
-              <li>
-                <Link to="/functions">Функции</Link>
-              </li>
-            </ul>
-          </div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Exit
-          </button>
-        </div>
-      </nav>
+      {/* 2. ИСПОЛЬЗУЕМ ВЫНЕСЕННЫЙ КОМПОНЕНТ И ПЕРЕДАЕМ ПРОПСЫ */}
+      <Navbar
+        handleLogout={handleLogout}
+        isMenuOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+      />
 
       <div className="container">
         <header className="header">

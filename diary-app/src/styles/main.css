@@ -65,6 +65,10 @@ body {
   align-items: center;
 }
 
+.navbar-close-btn {
+    display: none;
+}
+
 /* .callback {
   margin-left: 30px;
   padding: 10px 30px;
@@ -189,7 +193,80 @@ body {
   color: coral;
 }
 
+/* --- ОБЩИЕ СТИЛИ БУРГЕРА --- */
+.burger-menu {
+    display: none; /* Скрыто по умолчанию на десктопе */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 100;
+}
 
+.burger-menu .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: black; /* Цвет полосок */
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+/* --- МЕДИА-ЗАПРОС (МЕНЬШЕ 768px) --- */
+@media (max-width: 768px) {
+    /* 1. Показываем кнопку бургер */
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+    /* 2. Скрываем (и готовим к выезду) меню */
+    .navbar-wrap {
+        position: fixed;
+        top: 0; /* Высота вашей шапки */
+        left: -100%; /* Скрыто за пределами экрана */
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9); 
+        transition: left 0.3s ease-in-out;
+        z-index: 1000;
+        padding-top: 20px;
+        background-color: #fff;
+    }
+
+    .navbar-close-btn {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 1em;
+        color: black;
+        border: none;
+        border-radius: 50px; /* Круглые края */
+        padding: 15px 25px;
+        cursor: pointer;
+    background-color: #fff;
+    }
+    
+    /* 3. Открытое состояние меню */
+    .navbar-wrap.open {
+        left: 0; /* Меню выезжает на экран */
+    }
+
+    /* 4. Навигационные ссылки делаем вертикальными */
+    .navbar-menu {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .navbar-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
 
 
 * {

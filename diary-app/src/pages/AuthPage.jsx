@@ -73,7 +73,7 @@ function AuthPage() {
                 <label className="form-label">Email</label>
                 <input
                   className="form-input"
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required

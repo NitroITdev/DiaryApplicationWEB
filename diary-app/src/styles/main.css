@@ -128,6 +128,15 @@ body {
     /* Делаем модальное окно обратной связи немного меньше */
     max-width: 420px; 
     width: 90%;
+    overflow: hidden;
+}
+
+.modal-scroll-wrapper {
+    max-height: 80vh;
+    overflow-y: auto;
+    /* background-color: white; */
+    padding: 20px;
+    border-radius: 12px;
 }
 
 .feedback-modal .modal-body {

@@ -214,16 +214,13 @@ function DiaryPage() {
                 <Link to="/about">О нас</Link>
               </li>
               <li>
-              <Link to="/why-journal">Зачем вести дневник?</Link>
+                <Link to="/why-journal">Зачем вести дневник?</Link>
               </li>
               <li>
-                <li>
-              <Link to="/how-to-start">Как начать?</Link>
-              </li>
-
+                <Link to="/how-to-start">Как начать?</Link>
               </li>
               <li>
-                 <Link to="/functions">Функции</Link>
+                <Link to="/functions">Функции</Link>
               </li>
             </ul>
           </div>
@@ -437,29 +434,34 @@ function DiaryPage() {
                   ×
                 </button>
               </div>
-              <div className="modal-body">
-                <FAQSection />
+              <div className="modal-scroll-wrapper">
+                <div className="modal-body">
+                  <FAQSection />
 
-                <hr style={{ margin: "20px 0", borderTop: "1px solid #eee" }} />
+                  <hr
+                    style={{ margin: "20px 0", borderTop: "1px solid #eee" }}
+                  />
 
-                <p>
-                  Если ваш вопрос не найден, пожалуйста, оставьте нам сообщение:
-                </p>
+                  <p>
+                    Если ваш вопрос не найден, пожалуйста, оставьте нам
+                    сообщение:
+                  </p>
 
-                <form onSubmit={handleSendFeedback}>
-                  <div className="form-group">
-                    <textarea
-                      className="form-input form-textarea"
-                      rows="5"
-                      value={feedbackText}
-                      onChange={(e) => setFeedbackText(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <button type="submit" className="submit-btn">
-                    Отправить сообщение
-                  </button>
-                </form>
+                  <form onSubmit={handleSendFeedback}>
+                    <div className="form-group">
+                      <textarea
+                        className="form-input form-textarea"
+                        rows="5"
+                        value={feedbackText}
+                        onChange={(e) => setFeedbackText(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="submit-btn">
+                      Отправить сообщение
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

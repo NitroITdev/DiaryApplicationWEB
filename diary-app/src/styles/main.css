@@ -76,7 +76,7 @@ body {
   border-radius: 100px;
   color: #fff;
   text-decoration: none;
-  transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;pos
   box-shadow: 0 4px 6px rgba(255, 127, 80, .2);
 }
 
@@ -94,7 +94,7 @@ body {
     bottom: 20px;
     z-index: 1000; /* Поверх большинства элементов, кроме модальных окон */
     
-    /* Стилизация, используем Coral для привлечения внимания */
+    /* Стилизация, используем Coral */
     background-color: coral;
     color: white;
     border: none;
@@ -113,7 +113,7 @@ body {
 }
 
 .floating-feedback-btn:hover {
-    /* Используем эффект, как у вашей кнопки .callback */
+    /* Используем эффект, как у  кнопки .callback */
     transform: scale(1.04);
     box-shadow: 0 9px 9px rgba(255, 127, 80, .5);
     background-color: #ff6347; /* Чуть темнее коралла */
@@ -166,7 +166,7 @@ body {
 
 .logout-btn {
     margin-left: 15px;
-    background-color: #dc3545; /* красный цвет */
+    background-color: #dc3545; 
     color: white;
     text-decoration: none;
     border-radius: 8px;

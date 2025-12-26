@@ -2,8 +2,8 @@ package main
 
 import (
 	"database/sql"
-	"diary-backend/handlers"   // Ваш пакет обработчиков
-	"diary-backend/middleware" // Ваш пакет middleware
+	"diary-backend/handlers"   // пакет обработчиков
+	"diary-backend/middleware" // пакет middleware
 	"fmt"
 	"log"
 	"net/http"
@@ -13,7 +13,6 @@ import (
 )
 
 const (
-    // ОБНОВИТЕ: Убедитесь, что строка подключения актуальна
     dbConnStr = "user=postgres password=postgreAdmin dbname=diarydb sslmode=disable"
     port      = ":8080"
 )

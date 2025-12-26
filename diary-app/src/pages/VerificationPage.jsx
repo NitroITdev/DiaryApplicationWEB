@@ -15,13 +15,12 @@ const VerificationPage = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null); // Добавлено для сообщений об успехе/инфо
 
-
   const handleResendCode = async () => {
     setMessage(null);
     setError(null);
     setLoading(true);
 
-    const apiUrl = "http://localhost:8080/resend-code"; 
+    const apiUrl = "http://localhost:8080/resend-code";
 
     try {
       console.log(`Отправка запроса на повторную отправку кода для: ${email}`);
@@ -56,7 +55,6 @@ const VerificationPage = () => {
     setLoading(true);
     setError(null);
     setMessage(null); // Сброс сообщений
-
 
     try {
       const response = await fetch("http://localhost:8080/verify", {

@@ -16,7 +16,7 @@ const Navbar = ({ handleLogout, isMenuOpen, toggleMenu }) => {
   return (
     <nav className="navbar">
       <div className="container">
-        {/* НОВАЯ КНОПКА БУРГЕР-МЕНЮ */}
+        {/*КНОПКА БУРГЕР-МЕНЮ */}
         <button
           className={`burger-menu ${isMenuOpen ? "is-active" : ""}`}
           onClick={toggleMenu}
@@ -85,24 +85,11 @@ function DiaryPage() {
   // СОСТОЯНИЕ ДЛЯ МОДАЛЬНОГО ОКНА ОБРАТНОЙ СВЯЗИ
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   // СОСТОЯНИЕ ДЛЯ ТЕКСТА ОБРАТНОЙ СВЯЗИ
-  const [feedbackText, setFeedbackText] = useState("");
+
   const [search, setSearch] = useState("");
   const [filterTag, setFilterTag] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // // ФУНКЦИЯ: ОТПРАВКА ОБРАТНОЙ СВЯЗИ
-  // const handleSendFeedback = (e) => {
-  //   e.preventDefault();
-  //   if (!feedbackText.trim()) return;
-
-  //   console.log("Отправка обратной связи:", feedbackText);
-
-  //   // Тут будет реальный API-вызов
-  //   alert("Спасибо за ваш отзыв!");
-  //   setFeedbackText("");
-  //   setShowFeedbackModal(false);
-  // };
 
   // --- ФУНКЦИЯ ЗАГРУЗКИ ЗАМЕТОК ---
   const fetchNotes = useCallback(async () => {
@@ -606,26 +593,6 @@ function DiaryPage() {
                   <hr
                     style={{ margin: "20px 0", borderTop: "1px solid #eee" }}
                   />
-
-                  {/* <p>
-                    Если ваш вопрос не найден, пожалуйста, оставьте нам
-                    сообщение:
-                  </p> */}
-
-                  {/* <form onSubmit={handleSendFeedback}>
-                    <div className="form-group">
-                      <textarea
-                        className="form-input form-textarea"
-                        rows="5"
-                        value={feedbackText}
-                        onChange={(e) => setFeedbackText(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <button type="submit" className="submit-btn">
-                      Отправить сообщение
-                    </button>
-                  </form> */}
                 </div>
               </div>
             </div>

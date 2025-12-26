@@ -49,7 +49,6 @@ func RegisterHandler(db *sql.DB) http.HandlerFunc {
             RETURNING id
         `
         
-        // Обратите внимание на порядок аргументов:
         err = db.QueryRow(sqlStatement, 
             req.Username, 
             req.Email, 
@@ -79,8 +78,6 @@ func RegisterHandler(db *sql.DB) http.HandlerFunc {
             // или статус с предупреждением. В этом примере возвращаем ошибку сервера, 
             // чтобы уведомить пользователя, что что-то пошло не так.
             http.Error(w, "Регистрация успешна, но не удалось отправить верификационное письмо. Попробуйте войти позже.", http.StatusInternalServerError)
-            // При реальном использовании тут может потребоваться удаление пользователя из БД 
-            // или его пометка для повторной отправки письма.
             return
         }
 
